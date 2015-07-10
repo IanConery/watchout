@@ -13,7 +13,7 @@ var box = d3.select('body').append('svg').attr('width', 500).attr('height', 500)
 //we want to create 20 enemies at random locations with identical sizes and colors
 var enemiesStart = [];
 var randomNum = function() {
-  return Math.floor(Math.random() * 500);
+  return Math.round(Math.random() * (490 - 10) + 10);
 }
 for(var i = 0; i < 10; i++) {
   //create random x and y
@@ -21,6 +21,7 @@ for(var i = 0; i < 10; i++) {
   obj.CX = randomNum();
   obj.CY = randomNum();
   obj.r = 10;
+
   enemiesStart.push(obj);
 }
 
@@ -35,10 +36,13 @@ var enemies = box.selectAll('circle').data(enemiesStart).enter().append('circle'
   return d.CY;
 });
 
-var update = function(enemies) {
-  //
+var update = function(data) {
+  //test changing the enemies on 'cy'
+  data.attr('cy', function(d) {
+    return randomNum();
+  })
 }
 
 setInterval(function() {
-  update();
-}, 1500);
+  update(enemies);
+}, 1000);
