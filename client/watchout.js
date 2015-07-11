@@ -1,7 +1,5 @@
 // start slingin' some d3 here.
 
-// draw the enemies in an svg element
-
 
 //creates the 'environment'
 var box = d3.select('body').append('svg').attr('width', 500).attr('height', 500).attr('class', 'box');
@@ -14,19 +12,9 @@ var drag = d3.behavior.drag()
 function dragmove(d) {
   d3.select(this).attr('cx', d3.event.x);
   d3.select(this).attr('cy', d3.event.y);
-  //d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
 }
 
-//need to change the player attr cx to x and xy to y so that the mouse points to the right location, when we do that the player starts in the upper right corner of box
 
-
-//create a player
-var player = box.append('circle')
-  .attr('cx', 250)
-  .attr('cy', 250)
-  .attr('r', 20)
-  .style('fill', 'red')
-  .call(drag);
 
 
 //creates one enemy
@@ -60,11 +48,76 @@ var enemies = box.selectAll('circle').data(enemiesStart).enter().append('circle'
 
 var update = function(data) {
   //test changing the enemies on 'cy'
-  data.attr('cy', function(d) {
-    return randomNum();
-  })
-}
+  var tempCY; 
+  var tempCX; 
+  data.transition().attr('cy', function(d) {
+    tempCY = randomNum();
+    return tempCY;
+  }).attr('cx', function(d){
+    tempCX = randomNum();
+    return tempCX;
+  }).duration(1000).each(function(d){
+    d.CX = tempCX;
+    d.CY = tempCY;
+    return;
+   });
+};
 
+var player = box.append('circle')
+  .attr('cx', 250)
+  .attr('cy', 250)
+  .attr('r', 20)
+  .style('fill', 'red')
+  .call(drag);
+
+  var currentScore = 0;
 setInterval(function() {
+  // for(var i = 0; i < 20; i++){
+  //   currentScore += 1;
+  //   d3.select('.current span').text(currentScore.toString());
+  // }
   update(enemies);
 }, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
