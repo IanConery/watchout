@@ -7,6 +7,28 @@
 var box = d3.select('body').append('svg').attr('width', 500).attr('height', 500).attr('class', 'box');
 //we might need to append 'g'
 
+//creating new drag instance for our player
+var drag = d3.behavior.drag()
+    .on("drag", dragmove);
+
+function dragmove(d) {
+  var x = d3.event.x;
+  var y = d3.event.y;
+  d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
+}
+
+//need to change the player attr cx to x and xy to y so that the mouse points to the right location, when we do that the player starts in the upper right corner of box
+
+
+//create a player
+var player = box.append('circle')
+  .attr('cx', 250)
+  .attr('cy', 250)
+  .attr('r', 20)
+  .style('fill', 'red')
+  .call(drag);
+
+
 //creates one enemy
 // box.append('circle').attr('cx', 25).attr('cy', 25).attr('r', 10).style('fill', 'black');
 
