@@ -12,9 +12,9 @@ var drag = d3.behavior.drag()
     .on("drag", dragmove);
 
 function dragmove(d) {
-  var x = d3.event.x;
-  var y = d3.event.y;
-  d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
+  d3.select(this).attr('cx', d3.event.x);
+  d3.select(this).attr('cy', d3.event.y);
+  //d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
 }
 
 //need to change the player attr cx to x and xy to y so that the mouse points to the right location, when we do that the player starts in the upper right corner of box
@@ -37,7 +37,7 @@ var enemiesStart = [];
 var randomNum = function() {
   return Math.round(Math.random() * (490 - 10) + 10);
 }
-for(var i = 0; i < 10; i++) {
+for(var i = 0; i < 20; i++) {
   //create random x and y
   var obj = {};
   obj.CX = randomNum();
